@@ -311,19 +311,19 @@ section {
   width: 60%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .html {
-  width: 85%;
+  width: 95%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .js {
   width: 95%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .webflow {
-  width: 75%;
+  width: 85%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .react {
-  width: 60%;
+  width: 85%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .node {
-  width: 60%;
+  width: 75%;
 }
 .about-stats .progress-bars .progress-bar .progress-con .progress .content {
   width: 95%;
