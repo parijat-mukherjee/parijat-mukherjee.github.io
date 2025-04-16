@@ -5,30 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parijat Mukherjee | Resume</title>
   <style>
+    :root {
+      --bg: #f9f9f9;
+      --text: #333;
+      --card: #ffffff;
+      --hover: #fafafa;
+      --accent: #007acc;
+      --header-bg: linear-gradient(to right, #2c3e50, #4ca1af);
+    }
+
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #e0e0e0;
+      --card: #1e1e1e;
+      --hover: #2c2c2c;
+      --accent: #4ca1af;
+      --header-bg: linear-gradient(to right, #1e3c72, #2a5298);
+    }
+
     * { box-sizing: border-box; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f9f9f9; color: #333; }
-    header { background: linear-gradient(to right, #2c3e50, #4ca1af); color: white; padding: 3rem 1rem; text-align: center; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: var(--bg); color: var(--text); transition: background 0.3s, color 0.3s; }
+    header { background: var(--header-bg); color: white; padding: 3rem 1rem; text-align: center; position: relative; }
     header h1 { margin: 0; font-size: 2.5rem; }
     header p { font-size: 1.2rem; margin-top: 0.5rem; }
-    .container { max-width: 1000px; margin: auto; padding: 2rem; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-radius: 8px; margin-top: -2rem; position: relative; z-index: 1; }
-    h2 { color: #2c3e50; border-bottom: 2px solid #ddd; padding-bottom: 0.4rem; margin-bottom: 1rem; }
+    .theme-toggle { position: absolute; top: 1rem; right: 1rem; background: transparent; color: white; border: 2px solid white; padding: 0.4rem 0.8rem; border-radius: 5px; cursor: pointer; transition: background 0.3s, color 0.3s; }
+    .theme-toggle:hover { background: white; color: #2c3e50; }
+    .container { max-width: 1000px; margin: auto; padding: 2rem; background: var(--card); box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-radius: 8px; margin-top: -2rem; position: relative; z-index: 1; transition: background 0.3s; }
+    h2 { color: var(--text); border-bottom: 2px solid #ddd; padding-bottom: 0.4rem; margin-bottom: 1rem; }
     ul { list-style-type: none; padding: 0; }
     li { margin-bottom: 1rem; }
     .section { margin-bottom: 2.5rem; }
-    .contact { background: #ecf0f1; padding: 1rem; border-radius: 6px; }
-    a { color: #007acc; text-decoration: none; transition: all 0.3s ease; }
-    a:hover { text-decoration: underline; color: #005f99; }
+    .contact { background: var(--hover); padding: 1rem; border-radius: 6px; }
+    a { color: var(--accent); text-decoration: none; transition: all 0.3s ease; }
+    a:hover { text-decoration: underline; color: darken(var(--accent), 10%); }
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
     }
     .portfolio-item {
-      background: #fafafa;
+      background: var(--hover);
       border: 1px solid #ddd;
       padding: 1rem;
       border-radius: 6px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
     }
     .portfolio-item:hover {
       transform: translateY(-5px);
@@ -40,8 +60,9 @@
     .footer { text-align: center; padding: 1rem; font-size: 0.9rem; color: #777; margin-top: 2rem; }
   </style>
 </head>
-<body>
+<body data-theme="light">
   <header>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
     <h1>Parijat Mukherjee</h1>
     <p>Content Marketing Manager | Content Strategy & Writing Specialist</p>
   </header>
@@ -126,5 +147,13 @@
   <div class="footer">
     &copy; 2025 Parijat Mukherjee. All rights reserved.
   </div>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute("data-theme");
+      body.setAttribute("data-theme", currentTheme === "dark" ? "light" : "dark");
+    }
+  </script>
 </body>
 </html>
