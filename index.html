@@ -5,15 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parijat Mukherjee | Resume</title>
   <style>
-    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f5f5f5; }
-    header { background: #2c3e50; color: #fff; padding: 2rem; text-align: center; }
-    .container { max-width: 900px; margin: auto; padding: 2rem; background: white; }
-    h1, h2, h3 { color: #2c3e50; }
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f9f9f9; color: #333; }
+    header { background: linear-gradient(to right, #2c3e50, #4ca1af); color: white; padding: 3rem 1rem; text-align: center; }
+    header h1 { margin: 0; font-size: 2.5rem; }
+    header p { font-size: 1.2rem; margin-top: 0.5rem; }
+    .container { max-width: 1000px; margin: auto; padding: 2rem; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-radius: 8px; margin-top: -2rem; position: relative; z-index: 1; }
+    h2 { color: #2c3e50; border-bottom: 2px solid #ddd; padding-bottom: 0.4rem; margin-bottom: 1rem; }
     ul { list-style-type: none; padding: 0; }
     li { margin-bottom: 1rem; }
-    .section { margin-bottom: 2rem; }
-    .contact { background: #ecf0f1; padding: 1rem; }
-    a { color: #2980b9; text-decoration: none; }
+    .section { margin-bottom: 2.5rem; }
+    .contact { background: #ecf0f1; padding: 1rem; border-radius: 6px; }
+    a { color: #007acc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .portfolio-item {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 6px;
+      transition: box-shadow 0.3s ease;
+    }
+    .portfolio-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .portfolio-item h3 {
+      margin-top: 0;
+    }
+    .footer { text-align: center; padding: 1rem; font-size: 0.9rem; color: #777; margin-top: 2rem; }
   </style>
 </head>
 <body>
@@ -66,6 +89,27 @@
     </section>
 
     <section class="section">
+      <h2>Portfolio</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <h3>Project Title 1</h3>
+          <p>Brief description of the project or content piece.</p>
+          <a href="#">View Project →</a>
+        </div>
+        <div class="portfolio-item">
+          <h3>Project Title 2</h3>
+          <p>Brief description of the project or content piece.</p>
+          <a href="#">View Project →</a>
+        </div>
+        <div class="portfolio-item">
+          <h3>Project Title 3</h3>
+          <p>Brief description of the project or content piece.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
       <h2>Contact</h2>
       <div class="contact">
         <p>Email: <a href="mailto:parijatmukherjee010@gmail.com">parijatmukherjee010@gmail.com</a></p>
@@ -73,11 +117,10 @@
         <p>Location: Kolkata, West Bengal, India</p>
       </div>
     </section>
+  </div>
 
-    <section class="section">
-      <h2>Portfolio</h2>
-      <p>Coming soon! You can link your writing samples, GitHub projects, or case studies here.</p>
-    </section>
+  <div class="footer">
+    &copy; 2025 Parijat Mukherjee. All rights reserved.
   </div>
 </body>
 </html>
