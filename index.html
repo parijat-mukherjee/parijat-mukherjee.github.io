@@ -4,181 +4,168 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parijat Mukherjee | Content & AI Systems</title>
-  <meta name="description" content="Content Marketing Manager | AI & LLM-Driven Content Systems. Portfolio, resume, and selected works." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0b0e14;
-      --bg-alt: #111624;
-      --text: #e6e9ef;
-      --muted: #9aa4bf;
-      --accent: #6cf2c2;
-      --card: #161b2e;
-      --border: #22284a;
+      --bg: #0b0f14;
+      --card: #121823;
+      --text: #e6eaf0;
+      --muted: #9aa4b2;
+      --accent: #5eead4;
+      --border: #1f2937;
     }
 
     * { box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617);
       color: var(--text);
       line-height: 1.6;
     }
 
     a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
 
     .container {
       max-width: 1100px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
+      margin: auto;
+      padding: 4rem 1.5rem;
     }
 
-    header {
-      padding: 6rem 1.5rem 4rem;
-      background: linear-gradient(180deg, #0b0e14 0%, #0e1322 100%);
-      border-bottom: 1px solid var(--border);
-    }
-
+    /* HERO */
     .hero {
-      max-width: 900px;
-      margin: 0 auto;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .hero h1 {
-      font-size: 3rem;
-      margin: 0 0 0.75rem;
-      letter-spacing: -0.03em;
+    h1 {
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
     }
 
-    .hero h2 {
-      font-weight: 500;
-      color: var(--accent);
-      margin: 0 0 1.5rem;
+    .subtitle {
       font-size: 1.25rem;
-    }
-
-    .hero p {
       color: var(--muted);
-      max-width: 720px;
-      font-size: 1.05rem;
+      max-width: 700px;
     }
 
     .cta {
       margin-top: 2rem;
       display: flex;
-      gap: 1rem;
       flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .btn {
-      padding: 0.7rem 1.2rem;
+      padding: 0.75rem 1.2rem;
       border-radius: 8px;
       border: 1px solid var(--border);
-      background: var(--card);
+      background: transparent;
       color: var(--text);
+      cursor: pointer;
       font-weight: 500;
+      transition: 0.2s;
     }
 
     .btn.primary {
-      background: var(--accent);
-      color: #06251a;
-      border-color: transparent;
+      background: linear-gradient(135deg, #2dd4bf, #22d3ee);
+      color: #020617;
+      border: none;
     }
 
-    section {
-      margin-top: 4rem;
-    }
+    .btn:hover { transform: translateY(-2px); }
 
-    section h3 {
-      font-size: 1.8rem;
+    /* SECTIONS */
+    section { margin-top: 6rem; }
+
+    .section-title {
+      font-size: 2rem;
       margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
     }
 
+    .section-desc {
+      color: var(--muted);
+      max-width: 800px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* CARDS */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 
     .card {
-      background: var(--card);
+      background: linear-gradient(180deg, var(--card), #0b1220);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 1.5rem;
-      transition: transform 0.4s ease, opacity 0.4s ease;
-      opacity: 0;
-      transform: translateY(20px);
-    }
+      transition: 0.3s;
     }
 
-    .card h4 {
-      margin: 0 0 0.5rem;
-      font-size: 1.05rem;
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #2dd4bf44;
     }
 
-    .card p {
-      margin: 0 0 0.75rem;
+    .card h3 { margin-top: 0; }
+
+    .tags {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
       color: var(--muted);
-      font-size: 0.95rem;
     }
 
-    .resume-frame {
-      width: 100%;
-      height: 900px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: #fff;
+    /* RESUME */
+    .resume-grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     }
 
+    ul { padding-left: 1.2rem; }
+
+    /* FOOTER */
     footer {
-      margin-top: 5rem;
-      padding: 3rem 1.5rem;
       border-top: 1px solid var(--border);
+      margin-top: 6rem;
+      padding: 2rem;
       text-align: center;
       color: var(--muted);
       font-size: 0.9rem;
     }
 
-    @media (max-width: 640px) {
-      .hero h1 { font-size: 2.2rem; }
-      header { padding-top: 4rem; }
+    /* ANIMATION */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.8s;
     }
 
-    .card.visible {
+    .reveal.visible {
       opacity: 1;
-      transform: translateY(0);
-    }
-
-    .tag {
-      display: inline-block;
-      margin-top: 0.5rem;
-      margin-right: 0.4rem;
-      padding: 0.2rem 0.55rem;
-      font-size: 0.7rem;
-      border-radius: 999px;
-      background: rgba(108,242,194,0.12);
-      color: var(--accent);
-      border: 1px solid rgba(108,242,194,0.25);
-    }
-      header { padding-top: 4rem; }
+      transform: none;
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <div class="hero">
+  <!-- HERO -->
+  <div class="container hero">
     <h1>Parijat Mukherjee</h1>
-    <h2>Content Marketing Manager | AI & LLM-Driven Content Systems</h2>
-    <p>
-      Technical content leader with 12+ years of experience across web development, content strategy, and AI-assisted content systems. Specialized in building scalable, SEO-driven, and automation-enabled content workflows using Python, React, and Large Language Models.
+    <p class="subtitle">
+      Content Marketing Manager | AI & LLM-Driven Content Systems<br>
+      Building scalable content, automation pipelines, and technical narratives.
     </p>
+
     <div class="cta">
       <a class="btn primary" href="#portfolio">View Portfolio</a>
       <a class="btn" href="https://drive.google.com/file/d/1eyO3xF-5_nxFybgwHFIp523A_StuTTj1/view" target="_blank">Download Resume (PDF)</a>
@@ -186,134 +173,99 @@
       <a class="btn" href="https://www.linkedin.com/in/parijat-mukherjee-97bb97352" target="_blank">LinkedIn</a>
     </div>
   </div>
-</header>
 
-<main class="container">
-
-  <section id="portfolio">
-    <h3>Content Portfolio</h3>
-    <p style="color:var(--muted); max-width:800px; margin-bottom:2rem">
-      This portfolio represents a curated selection of my work. Due to extensive experience as a <strong>ghostwriter</strong>, much of my professional output is confidential or unpublished. I have worked across significantly more domains, industries, and formats than those showcased here.
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="container reveal">
+    <h2 class="section-title">Content Portfolio</h2>
+    <p class="section-desc">
+      A curated selection of published work across technology, products, and web copy.
+      Much of my professional work has been delivered as <strong>ghostwriting</strong>;
+      this portfolio is therefore representative, not exhaustive.
     </p>
 
-    <h4>Tech-Based Writing</h4>
+    <h3>Tech-Based Writing</h3>
     <div class="grid">
-      <div class="card" data-animate>
-        <h4>Technical Deep-Dive Article</h4>
-        <p>Long-form technical content explaining complex systems, platforms, and engineering concepts in a clear, structured manner.</p>
-        <span class="tag">Tech</span> <span class="tag">AI</span>
-        <br /><br />
-        <a href="https://docs.google.com/document/d/1ssdi5kMKtf_6hFsOeIHj5FaCFaIB9s5DmOJFu9OZ_n0/edit" target="_blank">View Document</a>
+      <div class="card">
+        <h3>AI & Automation Article</h3>
+        <p>Deep-dive technical explainer on modern automation systems.</p>
+        <a href="https://docs.google.com/document/d/1ssdi5kMKtf_6hFsOeIHj5FaCFaIB9s5DmOJFu9OZ_n0/edit" target="_blank">View →</a>
+        <div class="tags">AI · LLM · Automation</div>
       </div>
-      <div class="card" data-animate>
-        <h4>AI & Systems-Oriented Content</h4>
-        <p>Explainer-style technical writing focused on AI workflows, automation, and platform-level thinking.</p>
-        <span class="tag">AI</span> <span class="tag">Systems</span>
-        <br /><br />
-        <a href="https://docs.google.com/document/d/1ARlS58NbM-CoqXpWXJ-boiOg4ekgdGQHBuDtPVA08Dg/edit" target="_blank">View Document</a>
-      </div>
-      <div class="card" data-animate>
-        <h4>Engineering & Platform Content</h4>
-        <p>Technical narratives bridging engineering decisions with real-world business and product impact.</p>
-        <span class="tag">Engineering</span> <span class="tag">Platforms</span>
-        <br /><br />
-        <a href="https://docs.google.com/document/d/12aglCjdgT9XW9XPSX7t1p6dYIhNpplklz6s7d1Tod7c/edit" target="_blank">View Document</a>
-      </div>
-    </div>
 
-    <h4 style="margin-top:2.5rem">Product-Related Content</h4>
-    <div class="grid">
-      <div class="card" data-animate>
-        <h4>Feature & Capability Explainers</h4>
-        <p>Product-led content translating features into clear user and business value.</p>
-        <span class="tag">Product</span> <span class="tag">SaaS</span>
-        <br /><br />
-        <a href="https://docs.google.com/document/d/1PqwCLmARQ0aPMM8xSkcKYQNSF_MqftWD2lt4xiul7IM/edit" target="_blank">View Document</a>
+      <div class="card">
+        <h3>Machine Learning Overview</h3>
+        <p>Conceptual ML breakdown for non-technical stakeholders.</p>
+        <a href="https://docs.google.com/document/d/1ARlS58NbM-CoqXpWXJ-boiOg4ekgdGQHBuDtPVA08Dg/edit" target="_blank">View →</a>
+        <div class="tags">ML · Data · Strategy</div>
       </div>
-      <div class="card" data-animate>
-        <h4>User-Centric Product Positioning</h4>
-        <p>Content focused on aligning product capabilities with real user pain points.</p>
-        <span class="tag">UX</span> <span class="tag">Product</span>
-        <br /><br />
-        <a href="https://docs.google.com/document/d/18ZXBuoNTS1dTHpBFrp6e6M5hcCm1y0j8Qd6x45vqLXE/edit" target="_blank">View Document</a>
-      </div>
-      <div class="card" data-animate>
-        <h4>Conversion-Oriented Product Narrative</h4>
-        <p>Persuasive product content designed to support acquisition and decision-making.</p>
-        <span class="tag">Conversion</span> <span class="tag">Marketing</span>
-        <br /><br />
-        <a href="https://docs.google.com/document/d/12NNyTtc97g6R3GblbYUEQjzUOuQQjdYRs9rnzS1Hd_k/edit" target="_blank">View Document</a>
-      </div>
-    </div>
 
-    <h4 style="margin-top:2.5rem">Website Copy</h4>
-    <div class="grid">
-      <div class="card" data-animate>
-        <h4>Brand-Aligned Website Messaging</h4>
-        <p>Strategic website copy aligned with brand voice, positioning, and long-term growth.</p>
-        <span class="tag">Branding</span> <span class="tag">Web</span>
-        <br /><br />
-        <a href="https://docs.google.com/document/d/16VOxClEMo0UkUuTEIeDVw14WBLYUUCqN2oRmw0Mfnuw/edit" target="_blank">View Document</a>
-      </div>
-      <div class="card" data-animate>
-        <h4>Landing Pages & UX Copy</h4>
-        <p>High-clarity copy optimized for user flow, comprehension, and engagement.</p>
-        <span class="tag">UX</span> <span class="tag">Landing Pages</span>
-        <br /><br />
-        <a href="https://docs.google.com/document/d/1Xv1DoN3kFcD1sUMsTRhoxOS_vp3o85Voj3z0yjvsU0o/edit" target="_blank">View Document</a>
-      </div>
-      <div class="card" data-animate>
-        <h4>Conversion-Focused Website Copy</h4>
-        <p>Website content written to balance clarity, credibility, and conversion goals.</p>
-        <span class="tag">CRO</span> <span class="tag">Web</span>
-        <br /><br />
-        <a href="https://docs.google.com/document/d/1TNhWXqur7zsCjaKVpfkrYzi6x9m-Ho0qw86RSVysYZk/edit" target="_blank">View Document</a>
+      <div class="card">
+        <h3>Tech Product Explainer</h3>
+        <p>Simplifying complex systems into usable narratives.</p>
+        <a href="https://docs.google.com/document/d/12aglCjdgT9XW9XPSX7t1p6dYIhNpplklz6s7d1Tod7c/edit" target="_blank">View →</a>
+        <div class="tags">SaaS · UX · Tech</div>
       </div>
     </div>
   </section>
 
-  
+  <!-- RESUME -->
+  <section id="resume" class="container reveal">
+    <h2 class="section-title">Resume</h2>
 
-  <section id="resume">
-    <h3>Resume</h3>
-    <div class="card">
-      <h4>Professional Summary</h4>
-      <p>Content Marketing Manager and Technical Content Developer with 12+ years of experience across web development, AI-assisted content systems, and large-scale content operations. Specialized in LLM-driven automation, SEO-led growth, and cross-functional leadership.</p>
+    <div class="resume-grid">
+      <div class="card">
+        <h3>Professional Summary</h3>
+        <p>
+          Content Marketing Manager and Technical Content Developer with
+          <strong>12+ years</strong> of experience spanning web development,
+          AI-assisted content systems, and large-scale content operations.
+          Specialized in LLM-driven automation, SEO-led growth, and Python-based workflows.
+        </p>
+      </div>
 
-      <h4 style="margin-top:1.5rem">Core Skills</h4>
-      <p>AI & LLM Content Systems · Prompt Engineering · Python · React · SEO Strategy · Content Operations · Team Leadership · Machine Learning Fundamentals</p>
+      <div class="card">
+        <h3>Core Skills</h3>
+        <p>
+          AI & LLM Content Systems · Prompt Engineering · Python · React ·
+          SEO Strategy · Content Operations · Team Leadership ·
+          Machine Learning Fundamentals · Web Development
+        </p>
+      </div>
 
-      <h4 style="margin-top:1.5rem">Experience Highlights</h4>
-      <ul style="color:var(--muted)">
-        <li>Led a 20+ member content team at Aristocat Studio, delivering ~50,000 words/day</li>
-        <li>Built Python + LLM-based automated content delivery pipelines</li>
-        <li>Worked across tech, SaaS, product, education, and marketing domains</li>
-        <li>Earlier background in full-stack web development (PHP, MySQL, JS, React)</li>
-      </ul>
+      <div class="card">
+        <h3>Experience Highlights</h3>
+        <ul>
+          <li>Led 20+ member content teams delivering ~50,000 words/day</li>
+          <li>Designed Python + LLM automated content pipelines</li>
+          <li>Worked across tech, SaaS, education, product, and marketing domains</li>
+          <li>Background in full-stack web development (PHP, JS, MySQL, React)</li>
+        </ul>
+      </div>
 
-      <p style="margin-top:1.5rem">For a complete chronological resume, please use the downloadable PDF above.</p>
+      <div class="card">
+        <h3>Current Focus</h3>
+        <p>
+          AI-assisted content systems, LLM workflows, scalable knowledge products,
+          and hybrid roles bridging engineering and communication.
+        </p>
+      </div>
     </div>
   </section>
 
-</main>
+  <footer>
+    © 2026 Parijat Mukherjee · Built for GitHub Pages
+  </footer>
 
-<footer>
-  © <span id="year"></span> Parijat Mukherjee · Built for GitHub Pages
-</footer>
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
-</script>
+    reveals.forEach(r => observer.observe(r));
+  </script>
 
 </body>
 </html>
