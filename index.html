@@ -1,969 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parijat Mukherjee - AI Content Developer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #141420;
-            --bg-tertiary: #1a1a2e;
-            --text-primary: #e2e8f0;
-            --text-secondary: #94a3b8;
-            --accent-primary: #00d4ff;
-            --accent-secondary: #7c3aed;
-            --accent-glow: rgba(0, 212, 255, 0.3);
-            --card-bg: rgba(26, 26, 46, 0.6);
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        [data-theme="light"] {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f1f5f9;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --accent-primary: #3b82f6;
-            --accent-secondary: #8b5cf6;
-            --accent-glow: rgba(59, 130, 246, 0.2);
-            --card-bg: rgba(255, 255, 255, 0.8);
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--bg-primary);
-            transition: background 0.3s ease, color 0.3s ease;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .neural-net {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0.15;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .theme-toggle {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            z-index: 1000;
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--accent-primary);
-            border-radius: 50px;
-            padding: 12px 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--accent-glow);
-        }
-
-        .theme-icon {
-            width: 24px;
-            height: 24px;
-            fill: var(--accent-primary);
-        }
-
-        header {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            padding: 60px 40px;
-            border-radius: 24px;
-            margin: 80px 0 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 80px var(--accent-glow);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-            animation: slideDown 0.8s ease-out;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
-            background-size: 200% 100%;
-            animation: shimmer 3s linear infinite;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .ai-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
-            50% { box-shadow: 0 0 40px var(--accent-glow); }
-        }
-
-        h1 {
-            font-size: 3.5em;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
-
-        .title {
-            font-size: 1.6em;
-            color: var(--text-primary);
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .tagline {
-            font-size: 1.1em;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 30px;
-            max-width: 800px;
-        }
-
-        .contact-info {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: all 0.3s;
-            padding: 10px 20px;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-        }
-
-        .contact-item:hover {
-            background: rgba(0, 212, 255, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--accent-glow);
-        }
-
-        .contact-icon {
-            width: 20px;
-            height: 20px;
-            fill: var(--accent-primary);
-        }
-
-        .section {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            margin-bottom: 30px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            animation: fadeInUp 0.8s ease-out;
-            animation-fill-mode: both;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.05), transparent);
-            pointer-events: none;
-        }
-
-        .section:nth-child(3) { animation-delay: 0.1s; }
-        .section:nth-child(4) { animation-delay: 0.2s; }
-        .section:nth-child(5) { animation-delay: 0.3s; }
-        .section:nth-child(6) { animation-delay: 0.4s; }
-
-        .section-title {
-            font-size: 2em;
-            color: var(--text-primary);
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--accent-primary);
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .section-icon {
-            width: 32px;
-            height: 32px;
-            fill: var(--accent-primary);
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .skill-card {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1));
-            padding: 25px;
-            border-radius: 16px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.1), transparent);
-            transform: scale(0);
-            transition: transform 0.6s;
-        }
-
-        .skill-card:hover::before {
-            transform: scale(1);
-        }
-
-        .skill-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 12px 40px var(--accent-glow);
-            border-color: var(--accent-primary);
-        }
-
-        .skill-card h3 {
-            font-size: 1.2em;
-            color: var(--text-primary);
-            position: relative;
-            z-index: 1;
-        }
-
-        .experience-item {
-            margin-bottom: 40px;
-            padding: 30px;
-            background: rgba(0, 212, 255, 0.05);
-            border-radius: 16px;
-            border-left: 4px solid var(--accent-primary);
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
-            border-radius: 4px;
-        }
-
-        .experience-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 8px 32px var(--accent-glow);
-            background: rgba(0, 212, 255, 0.1);
-        }
-
-        .job-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .job-title {
-            font-size: 1.4em;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .company {
-            font-size: 1.1em;
-            color: var(--accent-primary);
-            font-weight: 500;
-        }
-
-        .duration {
-            color: var(--text-secondary);
-            font-weight: 500;
-            background: rgba(124, 58, 237, 0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid rgba(124, 58, 237, 0.3);
-        }
-
-        .job-description {
-            list-style: none;
-            margin-top: 15px;
-        }
-
-        .job-description li {
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
-            color: var(--text-secondary);
-        }
-
-        .job-description li::before {
-            content: '◆';
-            position: absolute;
-            left: 0;
-            color: var(--accent-primary);
-            font-weight: bold;
-            font-size: 1em;
-        }
-
-        .education-grid {
-            display: grid;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .education-item, .cert-item {
-            padding: 25px;
-            background: rgba(124, 58, 237, 0.05);
-            border-radius: 16px;
-            border: 1px solid rgba(124, 58, 237, 0.2);
-            transition: all 0.3s;
-        }
-
-        .education-item:hover, .cert-item:hover {
-            transform: translateX(8px);
-            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
-            border-color: var(--accent-secondary);
-        }
-
-        .education-item h3, .cert-item h3 {
-            color: var(--text-primary);
-            font-size: 1.2em;
-            margin-bottom: 8px;
-        }
-
-        .education-item p, .cert-item p {
-            color: var(--text-secondary);
-        }
-
-        .interests-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .interest-tag {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(124, 58, 237, 0.2));
-            color: var(--text-primary);
-            padding: 12px 24px;
-            border-radius: 25px;
-            border: 1px solid var(--accent-primary);
-            font-weight: 500;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .interest-tag:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 20px var(--accent-glow);
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: white;
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 40px;
-            margin-top: 40px;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-title {
-            font-size: 2em;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-        }
-
-        .footer-subtitle {
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: white;
-            padding: 16px 48px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1em;
-            transition: all 0.3s;
-            box-shadow: 0 8px 32px var(--accent-glow);
-            border: none;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 48px var(--accent-glow);
-        }
-
-        .footer-links {
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-contact {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .footer-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-link:hover {
-            color: var(--accent-primary);
-        }
-
-        .footer-link svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-
-        .availability {
-            color: var(--text-secondary);
-            font-size: 0.9em;
-            margin-bottom: 10px;
-        }
-
-        .availability strong {
-            color: var(--text-primary);
-        }
-
-        .copyright {
-            opacity: 0.6;
-            color: var(--text-secondary);
-            font-size: 0.85em;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .theme-toggle {
-                top: 15px;
-                right: 15px;
-                padding: 10px 16px;
-            }
-
-            h1 {
-                font-size: 2.2em;
-            }
-
-            .title {
-                font-size: 1.2em;
-            }
-
-            .section {
-                padding: 25px;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .job-header {
-                flex-direction: column;
-            }
-
-            header {
-                margin-top: 60px;
-            }
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parijat Mukherjee | Content & AI Systems</title>
+  <meta name="description" content="Content Marketing Manager | AI & LLM-Driven Content Systems. Portfolio, resume, and selected works." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --bg-alt: #111624;
+      --text: #e6e9ef;
+      --muted: #9aa4bf;
+      --accent: #6cf2c2;
+      --card: #161b2e;
+      --border: #22284a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    header {
+      padding: 6rem 1.5rem 4rem;
+      background: linear-gradient(180deg, #0b0e14 0%, #0e1322 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0 0 0.75rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero h2 {
+      font-weight: 500;
+      color: var(--accent);
+      margin: 0 0 1.5rem;
+      font-size: 1.25rem;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 720px;
+      font-size: 1.05rem;
+    }
+
+    .cta {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #06251a;
+      border-color: transparent;
+    }
+
+    section {
+      margin-top: 4rem;
+    }
+
+    section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    }
+
+    .card h4 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin: 0 0 0.75rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .resume-frame {
+      width: 100%;
+      height: 900px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    footer {
+      margin-top: 5rem;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 2.2rem; }
+      header { padding-top: 4rem; }
+    }
+
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 0.5rem;
+      margin-right: 0.4rem;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.7rem;
+      border-radius: 999px;
+      background: rgba(108,242,194,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(108,242,194,0.25);
+    }
+      header { padding-top: 4rem; }
+    }
+  </style>
 </head>
-<body data-theme="dark">
-    <div class="bg-animation">
-        <canvas id="neuralCanvas" class="neural-net"></canvas>
+<body>
+
+<header>
+  <div class="hero">
+    <h1>Parijat Mukherjee</h1>
+    <h2>Content Marketing Manager | AI & LLM-Driven Content Systems</h2>
+    <p>
+      Technical content leader with 12+ years of experience across web development, content strategy, and AI-assisted content systems. Specialized in building scalable, SEO-driven, and automation-enabled content workflows using Python, React, and Large Language Models.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="#resume">View Resume</a>
+      <a class="btn" href="https://drive.google.com/file/d/1eyO3xF-5_nxFybgwHFIp523A_StuTTj1/view" target="_blank">Download Resume (PDF)</a>
+      <a class="btn" href="https://www.aristocatstudio.com" target="_blank">Featured Project</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section id="portfolio">
+    <h3>Content Portfolio</h3>
+    <p style="color:var(--muted); max-width:800px; margin-bottom:2rem">
+      This portfolio represents a curated selection of my work. Due to extensive experience as a <strong>ghostwriter</strong>, much of my professional output is confidential or unpublished. I have worked across significantly more domains, industries, and formats than those showcased here.
+    </p>
+
+    <h4>Tech-Based Writing</h4>
+    <div class="grid">
+      <div class="card" data-animate>
+        <h4>Technical Deep-Dive Article</h4>
+        <p>Long-form technical content explaining complex systems, platforms, and engineering concepts in a clear, structured manner.</p>
+        <span class="tag">Tech</span> <span class="tag">AI</span>
+        <br /><br />
+        <a href="https://docs.google.com/document/d/1ssdi5kMKtf_6hFsOeIHj5FaCFaIB9s5DmOJFu9OZ_n0/edit" target="_blank">View Document</a>
+      </div>
+      <div class="card" data-animate>
+        <h4>AI & Systems-Oriented Content</h4>
+        <p>Explainer-style technical writing focused on AI workflows, automation, and platform-level thinking.</p>
+        <span class="tag">AI</span> <span class="tag">Systems</span>
+        <br /><br />
+        <a href="https://docs.google.com/document/d/1ARlS58NbM-CoqXpWXJ-boiOg4ekgdGQHBuDtPVA08Dg/edit" target="_blank">View Document</a>
+      </div>
+      <div class="card" data-animate>
+        <h4>Engineering & Platform Content</h4>
+        <p>Technical narratives bridging engineering decisions with real-world business and product impact.</p>
+        <span class="tag">Engineering</span> <span class="tag">Platforms</span>
+        <br /><br />
+        <a href="https://docs.google.com/document/d/12aglCjdgT9XW9XPSX7t1p6dYIhNpplklz6s7d1Tod7c/edit" target="_blank">View Document</a>
+      </div>
     </div>
 
-    <div class="theme-toggle" id="themeToggle">
-        <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-        <span id="themeText">Dark</span>
+    <h4 style="margin-top:2.5rem">Product-Related Content</h4>
+    <div class="grid">
+      <div class="card" data-animate>
+        <h4>Feature & Capability Explainers</h4>
+        <p>Product-led content translating features into clear user and business value.</p>
+        <span class="tag">Product</span> <span class="tag">SaaS</span>
+        <br /><br />
+        <a href="https://docs.google.com/document/d/1PqwCLmARQ0aPMM8xSkcKYQNSF_MqftWD2lt4xiul7IM/edit" target="_blank">View Document</a>
+      </div>
+      <div class="card" data-animate>
+        <h4>User-Centric Product Positioning</h4>
+        <p>Content focused on aligning product capabilities with real user pain points.</p>
+        <span class="tag">UX</span> <span class="tag">Product</span>
+        <br /><br />
+        <a href="https://docs.google.com/document/d/18ZXBuoNTS1dTHpBFrp6e6M5hcCm1y0j8Qd6x45vqLXE/edit" target="_blank">View Document</a>
+      </div>
+      <div class="card" data-animate>
+        <h4>Conversion-Oriented Product Narrative</h4>
+        <p>Persuasive product content designed to support acquisition and decision-making.</p>
+        <span class="tag">Conversion</span> <span class="tag">Marketing</span>
+        <br /><br />
+        <a href="https://docs.google.com/document/d/12NNyTtc97g6R3GblbYUEQjzUOuQQjdYRs9rnzS1Hd_k/edit" target="_blank">View Document</a>
+      </div>
     </div>
 
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <div class="ai-badge">🤖 AI-Powered Professional</div>
-                <h1>Parijat Mukherjee</h1>
-                <div class="title">Technical Content Developer & AI Specialist</div>
-                <p class="tagline">Dynamic and results-driven professional with over 12 years of experience across Web Development, Content Creation, and Content Management. Expert prompt engineer and AI content developer specializing in Large Language Models, with an eye for detail and creativity.</p>
-                <div class="contact-info">
-                    <a href="mailto:parijatmukherjee010@gmail.com" class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        parijatmukherjee010@gmail.com
-                    </a>
-                    <a href="tel:+916289806630" class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                        +91 6289806630
-                    </a>
-                </div>
-            </div>
-        </header>
-
-        <div class="section reveal">
-            <h2 class="section-title">
-                <svg class="section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
-                Areas of Expertise
-            </h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>🤖 AI Content Creation</h3>
-                </div>
-                <div class="skill-card">
-                    <h3>⚡ Prompt Engineering</h3>
-                </div>
-                <div class="skill-card">
-                    <h3>📊 Content Strategy</h3>
-                </div>
-                <div class="skill-card">
-                    <h3>👥 Team Management</h3>
-                </div>
-                <div class="skill-card">
-                    <h3>⚛️ ReactJS Programming</h3>
-                </div>
-                <div class="skill-card">
-                    <h3>🐍 Python Programming</h3>
-                </div>
-                <div class="skill-card">
-                    <h3>🧠 Generative AI</h3>
-                </div>
-                <div class="skill-card">
-                    <h3>🔬 Machine Learning</h3>
-                </div>
-            </div>
-        </div>
-
-        <div class="section reveal">
-            <h2 class="section-title">
-                <svg class="section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
-                Professional Experience
-            </h2>
-
-            <div class="experience-item">
-                <div class="job-header">
-                    <div>
-                        <div class="job-title">Technical Content Creator and Prompt Engineer</div>
-                        <div class="company">Creatium</div>
-                    </div>
-                    <div class="duration">Apr 2025 - Oct 2025</div>
-                </div>
-                <ul class="job-description">
-                    <li>Creating AI/LLM prompts for automating textual, audio, and visual content creation</li>
-                    <li>Creating interactive games using ReactJS</li>
-                    <li>Data Analysis of content performance using Python-based tools</li>
-                    <li>Analysis of Client requirements and creation of video lessons using AI tools</li>
-                </ul>
-            </div>
-
-            <div class="experience-item">
-                <div class="job-header">
-                    <div>
-                        <div class="job-title">Senior Content Creator/Content Marketing Manager</div>
-                        <div class="company">Aristocat Studio Private Limited</div>
-                    </div>
-                    <div class="duration">Feb 2020 - Apr 2025</div>
-                </div>
-                <ul class="job-description">
-                    <li>Led a dynamic team of 20 content writers and 4 editors, overseeing the creation of approximately 50,000 words of content daily</li>
-                    <li>Utilized advanced Python programming, coupled with Large Language Models (LLMs) such as ChatGPT and Claude, to build automated AI-based content delivery systems</li>
-                    <li>Crafted SEO-driven content using tools like SurferSEO and Clearscope, improving organic search rankings and driving higher traffic</li>
-                    <li>Worked directly with clients to define content objectives, provide regular progress updates, and ensure timely delivery</li>
-                    <li>Ensured quality and originality using tools like Copyscape and Grammarly</li>
-                </ul>
-            </div>
-
-            <div class="experience-item">
-                <div class="job-header">
-                    <div>
-                        <div class="job-title">Freelance Content Writer</div>
-                        <div class="company">Freelancer.com</div>
-                    </div>
-                    <div class="duration">Jul 2018 - Jan 2020</div>
-                </div>
-                <ul class="job-description">
-                    <li>Developed a wide variety of content including blog posts, eBooks, whitepapers, case studies, and video scripts for diverse industries</li>
-                    <li>Applied advanced SEO practices to optimize content for higher search engine rankings</li>
-                </ul>
-            </div>
-
-            <div class="experience-item">
-                <div class="job-header">
-                    <div>
-                        <div class="job-title">Academic Content Writer</div>
-                        <div class="company">Vista Edusolutions</div>
-                    </div>
-                    <div class="duration">Nov 2015 - Jun 2018</div>
-                </div>
-                <ul class="job-description">
-                    <li>Developed comprehensive educational and technical content covering various subjects</li>
-                    <li>Managed editing and proofreading process to ensure error-free, well-structured content</li>
-                    <li>Gained hands-on experience in WordPress by deploying educational content on custom WordPress sites</li>
-                    <li>Collaborated with development and teaching teams to align educational goals</li>
-                </ul>
-            </div>
-
-            <div class="experience-item">
-                <div class="job-header">
-                    <div>
-                        <div class="job-title">Web Developer</div>
-                        <div class="company">Orange Technologies</div>
-                    </div>
-                    <div class="duration">Aug 2013 - Oct 2015</div>
-                </div>
-                <ul class="job-description">
-                    <li>Developed custom backend features using PHP</li>
-                    <li>Performed on-demand database management and schema creation using MySQL</li>
-                    <li>Developed responsive frontend systems using HTML5, CSS3 and JavaScript</li>
-                    <li>Continuously refactored and optimized code for better performance, scalability, and maintainability</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="section reveal">
-            <h2 class="section-title">
-                <svg class="section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
-                Education
-            </h2>
-            <div class="education-grid">
-                <div class="education-item">
-                    <h3>🎓 Bachelor of Technology, Computer Science and Engineering</h3>
-                    <p><strong>Calcutta Institute of Engineering and Management</strong> | 2013 (Batch Topper)</p>
-                </div>
-                <div class="education-item">
-                    <h3>📚 Indian School Certificate Examination</h3>
-                    <p><strong>The Modern Academy, Kolkata</strong> | 2009</p>
-                </div>
-                <div class="education-item">
-                    <h3>📖 Indian Certificate of Secondary Education</h3>
-                    <p><strong>The Modern Academy, Kolkata</strong> | 2007</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="section reveal">
-            <h2 class="section-title">
-                <svg class="section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
-                Certifications
-            </h2>
-            <div class="education-grid">
-                <div class="cert-item">
-                    <h3>📱 Fundamentals of Digital Marketing</h3>
-                    <p>Google Digital Garage</p>
-                </div>
-                <div class="cert-item">
-                    <h3>📝 Content Marketing Certification</h3>
-                    <p>Hubspot Academy</p>
-                </div>
-                <div class="cert-item">
-                    <h3>📢 Social Media Marketing Certification</h3>
-                    <p>Hubspot Academy</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="section reveal">
-            <h2 class="section-title">
-                <svg class="section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                Interests
-            </h2>
-            <div class="interests-list">
-                <div class="interest-tag">💡 Content Creation</div>
-                <div class="interest-tag">🤖 Artificial Intelligence</div>
-                <div class="interest-tag">🐍 Python Programming</div>
-                <div class="interest-tag">✍️ Fiction Writing</div>
-                <div class="interest-tag">📸 Instagram Poetry Writing</div>
-                <div class="interest-tag">📰 Blogging</div>
-            </div>
-        </div>
-
-        <footer>
-            <h3 class="footer-title">Let's Create Something Amazing</h3>
-            <p class="footer-subtitle">Whether you need AI-powered content solutions, prompt engineering expertise, or innovative web development, I'm here to help bring your vision to life.</p>
-            
-            <a href="mailto:parijatmukherjee010@gmail.com" class="cta-button">Get In Touch</a>
-            
-            <div class="footer-links">
-                <div class="footer-contact">
-                    <a href="mailto:parijatmukherjee010@gmail.com" class="footer-link">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        Email
-                    </a>
-                    <a href="tel:+916289806630" class="footer-link">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                        Phone
-                    </a>
-                </div>
-                
-                <p class="availability">
-                    <strong>Available for:</strong> Freelance Projects • Full-time Opportunities • Consulting
-                </p>
-                
-                <p class="copyright">
-                    © 2025 Parijat Mukherjee. Crafted with 🤖 AI & 💙 Passion
-                </p>
-            </div>
-        </footer>
+    <h4 style="margin-top:2.5rem">Website Copy</h4>
+    <div class="grid">
+      <div class="card" data-animate>
+        <h4>Brand-Aligned Website Messaging</h4>
+        <p>Strategic website copy aligned with brand voice, positioning, and long-term growth.</p>
+        <span class="tag">Branding</span> <span class="tag">Web</span>
+        <br /><br />
+        <a href="https://docs.google.com/document/d/16VOxClEMo0UkUuTEIeDVw14WBLYUUCqN2oRmw0Mfnuw/edit" target="_blank">View Document</a>
+      </div>
+      <div class="card" data-animate>
+        <h4>Landing Pages & UX Copy</h4>
+        <p>High-clarity copy optimized for user flow, comprehension, and engagement.</p>
+        <span class="tag">UX</span> <span class="tag">Landing Pages</span>
+        <br /><br />
+        <a href="https://docs.google.com/document/d/1Xv1DoN3kFcD1sUMsTRhoxOS_vp3o85Voj3z0yjvsU0o/edit" target="_blank">View Document</a>
+      </div>
+      <div class="card" data-animate>
+        <h4>Conversion-Focused Website Copy</h4>
+        <p>Website content written to balance clarity, credibility, and conversion goals.</p>
+        <span class="tag">CRO</span> <span class="tag">Web</span>
+        <br /><br />
+        <a href="https://docs.google.com/document/d/1TNhWXqur7zsCjaKVpfkrYzi6x9m-Ho0qw86RSVysYZk/edit" target="_blank">View Document</a>
+      </div>
     </div>
+  </section>
 
-    <script>
-        const canvas = document.getElementById('neuralCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+  <section id="projects">
+    <h3>Web Project</h3>
+    <div class="card">
+      <h4>Aristocat Studio</h4>
+      <p>Content marketing studio delivering SEO-driven, AI-assisted content systems at scale. Built and managed end-to-end content operations, automation workflows, and client-facing web presence.</p>
+      <a href="https://www.aristocatstudio.com" target="_blank">Visit Website</a>
+    </div>
+  </section>
 
-        const particles = [];
-        const particleCount = 50;
-        const connectionDistance = 150;
+  <section id="resume">
+    <h3>Resume</h3>
+    <iframe class="resume-frame" src="https://drive.google.com/file/d/1eyO3xF-5_nxFybgwHFIp523A_StuTTj1/preview"></iframe>
+  </section>
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2 + 1;
-            }
+</main>
 
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
+<footer>
+  © <span id="year"></span> Parijat Mukherjee · Built for GitHub Pages
+</footer>
 
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary');
-                ctx.fill();
-            }
-        }
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
 
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
+  document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+</script>
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < connectionDistance) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent-primary');
-                        ctx.globalAlpha = 1 - distance / connectionDistance;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                        ctx.globalAlpha = 1;
-                    }
-                }
-            }
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const themeText = document.getElementById('themeText');
-        const body = document.body;
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            body.setAttribute('data-theme', newTheme);
-            
-            if (newTheme === 'light') {
-                themeIcon.innerHTML = '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>';
-                themeText.textContent = 'Light';
-            } else {
-                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-                themeText.textContent = 'Dark';
-            }
-        });
-
-        function reveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add('active');
-                }
-            }
-        }
-
-        window.addEventListener('scroll', reveal);
-        reveal();
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
